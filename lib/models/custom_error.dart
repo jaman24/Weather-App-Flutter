@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
-class CustorError extends Equatable {
+class CustomError extends Equatable {
   final String errMsg;
-  const CustorError({
+  const CustomError({
     this.errMsg = '',
   });
 

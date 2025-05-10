@@ -17,7 +17,7 @@ class WeatherApiService {
   Future<DirectGeocoding> getDirectGeocoding(String city) async {
     final Uri uri = Uri(
       scheme: 'https',
-      host: 'kApiHost',
+      host: kApiHost,
       path: '/geo/1.0/direct',
       queryParameters: {
         'q': city,
@@ -40,6 +40,7 @@ class WeatherApiService {
       }
 
       final directGeoconding = DirectGeocoding.fromJson(responseBody);
+      print('directGeocoding: $directGeoconding');
 
       return directGeoconding;
     }catch(e){
@@ -50,7 +51,7 @@ class WeatherApiService {
   Future<Weather> getWeather(DirectGeocoding directGeoconding) async {
     final Uri uri = Uri(
       scheme: 'https',
-      host: 'kApiHost',
+      host: kApiHost,
       path: '/data/2.5/weather',
       queryParameters: {
         'lat': '${directGeoconding.lat}',

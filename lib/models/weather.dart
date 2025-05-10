@@ -64,7 +64,7 @@ class Weather extends Equatable {
     final weather = json['weather'][0];
     final main = json['main'];
 
-    return Weather(description: weather['description'], icon: weather['icon'], temp: main['temp'], tempMin: main['tempMin'], tempMax: main['tempMax'], name: '', country: '', lastUpdated: DateTime.now());
+    return Weather(description: weather['description'], icon: weather['icon'], temp: main['temp'], tempMin: main['temp_min'], tempMax: main['temp_max'], name: '', country: '', lastUpdated: DateTime.now());
   }
 
   factory Weather.initial() => Weather(description: '', icon: '', temp: 100.0, tempMin: 100.0, tempMax: 100.0, name: '', country: '', lastUpdated: DateTime(1970));
