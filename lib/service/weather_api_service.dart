@@ -10,10 +10,8 @@ import 'package:weather_app/service/http_error_handler.dart';
 
 class WeatherApiService {
   final http.Client httpClient;
-  WeatherApiService({
-    required this.httpClient,
-  });
-  
+  WeatherApiService({required this.httpClient});
+
   Future<DirectGeocoding> getDirectGeocoding(String city) async {
     final Uri uri = Uri(
       scheme: 'https',
@@ -23,27 +21,27 @@ class WeatherApiService {
         'q': city,
         'limit': kLimit,
         'appid': dotenv.env['APPID'],
-      }
+      },
     );
 
-    try{
+    try {
       final http.Response response = await httpClient.get(uri);
 
-      if(response.statusCode != 200){
+      if (response.statusCode != 200) {
         throw httpErrorHandler(response);
       }
 
       final responseBody = json.decode(response.body);
 
-      if(responseBody.isEmpty){
+      if (responseBody.isEmpty) {
         throw WeatherExecption('Cannot get the location of $city');
       }
 
       final directGeoconding = DirectGeocoding.fromJson(responseBody);
-      print('directGeocoding: $directGeoconding');
+      // print('directGeocoding: $directGeoconding');
 
       return directGeoconding;
-    }catch(e){
+    } catch (e) {
       rethrow;
     }
   }
@@ -58,13 +56,13 @@ class WeatherApiService {
         'lon': '${directGeoconding.lon}',
         'units': kUnit,
         'appid': dotenv.env['APPID'],
-      }
+      },
     );
 
-    try{
+    try {
       final http.Response response = await httpClient.get(uri);
 
-      if(response.statusCode != 200){
+      if (response.statusCode != 200) {
         throw Exception(httpErrorHandler(response));
       }
 
@@ -73,7 +71,7 @@ class WeatherApiService {
       final Weather weather = Weather.fromJson(weatherJson);
 
       return weather;
-    }catch(e){
+    } catch (e) {
       rethrow;
     }
   }
