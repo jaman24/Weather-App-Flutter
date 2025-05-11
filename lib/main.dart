@@ -49,10 +49,25 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               title: 'Weather App',
               debugShowCheckedModeBanner: false,
-              theme:
+              theme: ThemeData.light().copyWith(
+                appBarTheme: const AppBarTheme(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                  elevation: 8,
+                ),
+              ),
+              darkTheme: ThemeData.dark().copyWith(
+                appBarTheme: const AppBarTheme(
+                  backgroundColor: Color.fromARGB(255, 57, 57, 57),
+                  foregroundColor: Colors.white,
+                  elevation: 8,
+                ),
+              ),
+              themeMode:
                   context.watch<ThemeCubit>().state.appTheme == AppTheme.light
-                      ? ThemeData.light()
-                      : ThemeData.dark(),
+                      ? ThemeMode.light
+                      : ThemeMode.dark,
+
               home: HomePage(),
             );
           },
