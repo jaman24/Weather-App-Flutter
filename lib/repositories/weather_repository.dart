@@ -6,23 +6,26 @@ import 'package:weather_app/service/weather_api_service.dart';
 
 class WeatherRepository {
   final WeatherApiService weatherApiService;
-  WeatherRepository({
-    required this.weatherApiService,
-  });
+  WeatherRepository({required this.weatherApiService});
   Future<Weather> fetchWeather(String city) async {
-    try{
-      final DirectGeocoding directGeocoding = await weatherApiService.getDirectGeocoding(city);
+    try {
+      final DirectGeocoding directGeocoding = await weatherApiService
+          .getDirectGeocoding(city);
 
-      final Weather tempWeather = await weatherApiService.getWeather(directGeocoding);
+      final Weather tempWeather = await weatherApiService.getWeather(
+        directGeocoding,
+      );
 
-      final Weather weather = tempWeather.copyWith(name: directGeocoding.name, country: directGeocoding.country);
+      final Weather weather = tempWeather.copyWith(
+        name: directGeocoding.name,
+        country: directGeocoding.country,
+      );
 
       return weather;
-    }on WeatherExecption catch (e){
+    } on WeatherExecption catch (e) {
       throw CustomError(errMsg: e.message);
-    }catch (e){
+    } catch (e) {
       throw CustomError(errMsg: e.toString());
     }
   }
-  
 }
